@@ -20,18 +20,18 @@ chrome.runtime.onMessage.addListener(async (message) => {
 });
 
 async function startEyeDropper() {
-
+  console.log("start eye dropper")
   if (!("EyeDropper" in window)) {
     alert("EyeDropper API not supported");
     return;
   }
 
   const eyeDropper = new EyeDropper();
-
+  console.log("eye dropper created", eyeDropper)
   try {
 
     const result = await eyeDropper.open();
-
+    console.log("color picred", result)
     chrome.runtime.sendMessage({
       type: "COLOR_PICKED",
       color: result.sRGBHex
