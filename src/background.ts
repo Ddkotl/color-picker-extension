@@ -1,5 +1,6 @@
+console.log("background loaded", chrome.scripting);
 chrome.runtime.onMessage.addListener(async (message) => {
-console.log("get message in bg" , message)
+  console.log("get message in bg", message)
   if (message.type === "START_COLOR_PICK") {
 
     const [tab] = await chrome.tabs.query({
