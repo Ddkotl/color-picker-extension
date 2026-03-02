@@ -9,9 +9,13 @@
     "default_title": "__MSG_extension_name__"
   },
   "permissions": [
-    "scripting",
+    "activeTab",
     "clipboardWrite"
   ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "icons": {
     "128": "icon128.png"
   }
