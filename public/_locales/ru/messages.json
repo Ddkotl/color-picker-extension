@@ -1,8 +1,8 @@
 {
-    "extension_name": {
-        "message": "Collor Picker Tools"
-    },
-    "extension_description": {
-        "message": "Простое расширение для выбора цветов с экрана"
-    }
+  "extension_name": {
+    "message": "Collor Picker Tools"
+  },
+  "extension_description": {
+    "message": "Простое расширение для выбора цветов с экрана"
+  }
 }

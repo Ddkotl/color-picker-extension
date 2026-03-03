@@ -1,7 +1,7 @@
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,11 +15,11 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
-        background: path.resolve(__dirname, "src/background.ts")
+        background: path.resolve(__dirname, "src/background.ts"),
       },
       output: {
-        entryFileNames: "[name].js"
-      }
-    }
-  }
-})
+        entryFileNames: "[name].js",
+      },
+    },
+  },
+});
