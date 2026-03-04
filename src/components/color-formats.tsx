@@ -9,7 +9,7 @@ export function ColorFormats({ hex }: { hex: string }) {
 
   return (
     <div className="text-sm  space-y-1">
-      <div className="flex flex-wrap gap-2 pt-1">
+      <div className="flex flex-col gap-2 pt-1">
         <CopyButton text={`HEX: ${hex}`} />
         <CopyButton text={`RGB: ${rgb.r}, ${rgb.g}, ${rgb.b}`} />
         <CopyButton text={`HSL: ${hsl.h}, ${hsl.s}%, ${hsl.l}%`} />

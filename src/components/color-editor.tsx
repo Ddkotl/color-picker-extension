@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/lib/styles.css";
+import "react-color-palette/dist/css/rcp.css";
 
 type Props = {
   initialColor: string;
@@ -10,24 +10,26 @@ type Props = {
 
 export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
   const [open, setOpen] = useState(false);
+
   const [color, setColor] = useColor(initialColor);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // синхронизация при выборе нового цвета извне
+  // синхронизация при смене initialColor
   useEffect(() => {
-    const new_color = useColor(initialColor);
-    console.log(new_color)
-    setColor(new_color[0]);
-  }, [initialColor]);
+    setColor({
+      hex: initialColor,
+      rgb: { r: 0, g: 0, b: 0, a: 1 },
+      hsv: { h: 0, s: 0, v: 0, a: 1 },
+    });
+  }, [initialColor, setColor]);
 
-  // debounce сохранения
+  // debounce автосохранения
   useEffect(() => {
     if (!open) return;
 
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
 
     debounceRef.current = setTimeout(() => {
       onCommit(color.hex);
@@ -37,19 +39,15 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [color]);
+  }, [color, open, onCommit]);
 
-  // клик вне
+  // клик вне → закрываем
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -62,7 +60,7 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
 
   return (
     <div ref={containerRef} className="relative flex flex-col gap-2">
-      {/* Preview */}
+      {/* Preview + input */}
       <div className="flex items-center gap-4">
         <div
           onClick={() => setOpen((prev) => !prev)}
@@ -72,24 +70,28 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
         <input
           value={color.hex}
           onChange={(e) => {
-            setColor(useColor(e.target.value)[0]);
+            setColor({
+              hex: e.target.value,
+              rgb: { r: 0, g: 0, b: 0, a: 1 },
+              hsv: { h: 0, s: 0, v: 0, a: 1 },
+            });
             onChange(e.target.value);
           }}
           className="flex-1 px-3 py-2 rounded-md border text-sm"
         />
       </div>
 
-      {/* Dropdown picker */}
+      {/* Dropdown палитра */}
       <div
-        className={`absolute top-20 left-0 z-50 w-full transition-all duration-200 origin-top ${open
-          ? "opacity-100 translate-y-0 scale-100"
-          : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-          }`}
+        className={`absolute top-20 left-0 z-50 transition-all duration-200 origin-top ${
+          open
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+        }`}
       >
         <div className="p-4 rounded-2xl border bg-popover shadow-xl space-y-4">
-          <div style={{ width: 300, height: 180 }}>
+          <div className="w-75 h-45">
             <ColorPicker
-
               color={color}
               onChange={(c) => {
                 setColor(c);
