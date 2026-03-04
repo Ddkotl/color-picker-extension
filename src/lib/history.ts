@@ -8,7 +8,7 @@ export function calcMaxHistory(isPro: boolean) {
 export function getHistory(setHistory: (history: string[]) => void, onLoaded?: (firstColor: string) => void) {
   chrome.storage.local.get(["history"], (result) => {
     const data = result.history as string[];
-    if (data) setHistory(result.history as string[]);
+    if (data) setHistory(result.history as string[] || []);
     if (data.length > 0 && onLoaded) onLoaded(data[0]);
   });
 }

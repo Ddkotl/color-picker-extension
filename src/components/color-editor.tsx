@@ -28,7 +28,8 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
       <SheetContent side="right" >
         <SheetHeader>
           <SheetTitle> {chrome.i18n.getMessage("edit_color")}</SheetTitle>
-          <SheetDescription>
+        </SheetHeader>
+          <SheetDescription className="p-4" >
             <ColorPicker
               hideInput={["rgb", "hsv"]}
               color={color}
@@ -37,7 +38,6 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
                 onChange(c.hex);
               }} />
           </SheetDescription>
-        </SheetHeader>
         <SheetFooter>
           <SheetClose asChild>
             <Button onClick={() => { onSave(color.hex) }}> {chrome.i18n.getMessage("save_in_history")}</Button>
