@@ -30,7 +30,7 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
           <SheetTitle> {chrome.i18n.getMessage("edit_color")}</SheetTitle>
           <SheetDescription>
             <ColorPicker
-              // hideInput={["rgb", "hsv"]}
+              hideInput={["rgb", "hsv"]}
               color={color}
               onChange={(c) => {
                 setColor(c);

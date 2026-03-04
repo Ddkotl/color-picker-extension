@@ -22,7 +22,7 @@ export function App() {
     }, []);
 
     return (
-        <div className="p-4 max-w-90 mx-auto  flex flex-col gap-4 bg-radial-primary">
+        <div className="p-4 max-w-90 mx-auto min-h-screen flex flex-col gap-4 bg-radial-primary">
             {/* Header */}
             <div className="flex items-center justify-between">
                 <Title className="text-foreground/90" text={chrome.i18n.getMessage("extension_name")} align="left" size="lg" />
