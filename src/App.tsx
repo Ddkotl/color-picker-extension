@@ -3,7 +3,7 @@ import { Title } from "./components/app-title";
 import { ModeToggle } from "./components/mode-toggle";
 import { Button } from "./components/ui/button";
 import { SidebarClose } from "lucide-react";
-import { calcMaxHistory, downloadHistory, getHistory } from "./lib/history";
+import { calcMaxHistory, downloadHistory, getHistory, saveHistory } from "./lib/history";
 import { pickColor } from "./lib/color";
 import { Separator } from "./components/ui/separator";
 import { ColorEditor } from "./components/color-editor";
@@ -41,6 +41,7 @@ export function App() {
                     <ColorEditor
                         initialColor={color}
                         onChange={(c) => setColor(c)}
+                        onSave={(c) => saveHistory(c, history, maxHistory, setHistory)}
                     />
                     <ColorFormats hex={color} />
                 </div>
