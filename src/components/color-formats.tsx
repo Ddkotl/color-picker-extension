@@ -13,7 +13,7 @@ export function ColorFormats({ hex }: { hex: string }) {
         <CopyButton text={`HEX: ${hex}`} />
         <CopyButton text={`RGB: ${rgb.r}, ${rgb.g}, ${rgb.b}`} />
         <CopyButton text={`HSL: ${hsl.h}, ${hsl.s}%, ${hsl.l}%`} />
-        <CopyButton text={`OKLCH: ${oklch.l.toFixed(2)}, ${oklch.c.toFixed(2)}, ${oklch.h.toFixed(2)}`} />
+        <CopyButton text={`OKLCH: ${oklch.l}, ${oklch.c}, ${oklch.h}`} />
         <CopyButton text={`Tailwind: ${tailwind}`} />
       </div>
     </div>
