@@ -34,7 +34,7 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
     debounceRef.current = setTimeout(() => {
       onCommit(color.hex);
       setOpen(false);
-    }, 2000);
+    }, 3000);
 
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -52,11 +52,6 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleDone = () => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    onCommit(color.hex);
-    setOpen(false);
-  };
 
   return (
     <div ref={containerRef} className="relative flex flex-col gap-2">
@@ -90,7 +85,7 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
         }`}
       >
         <div className="p-4 rounded-2xl border bg-popover shadow-xl space-y-4">
-          <div className="w-75 h-45">
+          <div className="w-ful h-full coursor-pointer">
             <ColorPicker
               color={color}
               onChange={(c) => {
@@ -100,14 +95,7 @@ export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
             />
           </div>
 
-          <div className="flex justify-end">
-            <button
-              onClick={handleDone}
-              className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground hover:opacity-90 transition"
-            >
-              Done
-            </button>
-          </div>
+       
         </div>
       </div>
     </div>
