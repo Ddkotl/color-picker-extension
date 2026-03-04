@@ -9,6 +9,7 @@ import { Separator } from "./components/ui/separator";
 import { ColorEditor } from "./components/color-editor";
 import { ColorFormats } from "./components/color-formats";
 
+
 export function App() {
     const [color, setColor] = useState<string | null>(null);
     const [history, setHistory] = useState<string[]>([]);

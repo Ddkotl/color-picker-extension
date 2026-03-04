@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { HexColorPicker } from "react-colorful";
+import { useEffect, useRef, useState } from "react";
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/lib/styles.css";
 
 type Props = {
   initialColor: string;
@@ -8,54 +9,105 @@ type Props = {
 };
 
 export function ColorEditor({ initialColor, onChange, onCommit }: Props) {
-  const [color, setColor] = useState(initialColor);
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useColor(initialColor);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // синхронизация если выбрали цвет из истории
+  // синхронизация при выборе нового цвета извне
   useEffect(() => {
-    setColor(initialColor);
+    const new_color = useColor(initialColor);
+    console.log(new_color)
+    setColor(new_color[0]);
   }, [initialColor]);
 
-  // debounce 2 секунды
+  // debounce сохранения
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onCommit(color);
+    if (!open) return;
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      onCommit(color.hex);
+      setOpen(false);
     }, 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
   }, [color]);
 
-  const handleChange = (newColor: string) => {
-    setColor(newColor);
-    onChange(newColor);
+  // клик вне
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleDone = () => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    onCommit(color.hex);
+    setOpen(false);
   };
 
   return (
-    <div >
-
+    <div ref={containerRef} className="relative flex flex-col gap-2">
       {/* Preview */}
       <div className="flex items-center gap-4">
         <div
-          className="w-14 h-14 rounded-xl border shadow-inner transition-all"
-          style={{ backgroundColor: color }}
+          onClick={() => setOpen((prev) => !prev)}
+          className="w-14 h-14 rounded-xl border shadow-inner cursor-pointer transition-transform hover:scale-105"
+          style={{ backgroundColor: color.hex }}
         />
-        <div className="flex flex-col text-sm">
-          <span className="font-medium">{color}</span>
-        </div>
+        <input
+          value={color.hex}
+          onChange={(e) => {
+            setColor(useColor(e.target.value)[0]);
+            onChange(e.target.value);
+          }}
+          className="flex-1 px-3 py-2 rounded-md border text-sm"
+        />
       </div>
 
-      {/* Modern Color Picker */}
-      <HexColorPicker
-        color={color}
-        onChange={handleChange}
-        className="w-full!"
-      />
+      {/* Dropdown picker */}
+      <div
+        className={`absolute top-20 left-0 z-50 w-full transition-all duration-200 origin-top ${open
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+          }`}
+      >
+        <div className="p-4 rounded-2xl border bg-popover shadow-xl space-y-4">
+          <div style={{ width: 300, height: 180 }}>
+            <ColorPicker
 
-      {/* Manual HEX input */}
-      <input
-        value={color}
-        onChange={(e) => handleChange(e.target.value)}
-        className="w-full px-3 py-2 rounded-md border text-sm"
-      />
+              color={color}
+              onChange={(c) => {
+                setColor(c);
+                onChange(c.hex);
+              }}
+            />
+          </div>
+
+          <div className="flex justify-end">
+            <button
+              onClick={handleDone}
+              className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground hover:opacity-90 transition"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
