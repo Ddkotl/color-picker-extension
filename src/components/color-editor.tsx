@@ -15,16 +15,16 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
 
   return (
     <Sheet modal={true}>
-      <SheetTrigger className="flex gap-2">
+      <SheetTrigger className="flex gap-2 items-center cursor-pointer">
         <div
-          className="w-14 h-14 rounded-xl border shadow-inner cursor-pointer transition-transform hover:scale-105"
+          className="w-10 h-10 rounded-full"
           style={{ backgroundColor: color.hex }}
         />
         <span className="ml-2 text-sm text-foreground/90">
           Edit Color </span>
-        <Edit />
+        <Edit className="w-5 h-5 text-primary" />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side="right" >
         <SheetHeader>
           <SheetTitle>Edit Color</SheetTitle>
         </SheetHeader>
@@ -38,8 +38,8 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
             }} />
         </SheetDescription>
         <SheetFooter>
-          <Button onClick={() => { onSave(color.hex) }}>Save</Button>
           <SheetClose asChild>
+            <Button onClick={() => { onSave(color.hex) }}>Save</Button>
             <Button variant="outline">Cancel</Button>
           </SheetClose>
         </SheetFooter>
