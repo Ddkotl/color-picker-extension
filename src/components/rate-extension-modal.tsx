@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Star } from "lucide-react";
-import { markExtensionRated } from "@/lib/rate";
 
 const WEBSTORE_URL =
   "https://chromewebstore.google.com/detail/YOUR_EXTENSION_ID";
