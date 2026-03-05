@@ -18,4 +18,4 @@ export function ColorFormats({ hex }: { hex: string }) {
       </div>
     </div>
   );
-};
+}

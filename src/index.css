@@ -3,7 +3,6 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/nunito-sans";
 
-
 @custom-variant dark (&:is(.dark *));
 
 :root {

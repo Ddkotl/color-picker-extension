@@ -1,6 +1,15 @@
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/dist/css/rcp.css";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 import { Edit } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -25,28 +34,36 @@ export function ColorEditor({ initialColor, onChange, onSave }: Props) {
         </span>
         <Edit className="w-5 h-5 text-primary transition-transform duration-200 group-hover:rotate-12 group-hover:scale-110" />
       </SheetTrigger>
-      <SheetContent side="right" className="bg-radial-primary overflow-auto" >
+      <SheetContent side="right" className="bg-radial-primary overflow-auto">
         <SheetHeader>
           <SheetTitle> {chrome.i18n.getMessage("edit_color")}</SheetTitle>
         </SheetHeader>
-        <SheetDescription className="p-4" >
+        <SheetDescription className="p-4">
           <ColorPicker
             hideInput={["rgb", "hsv"]}
             color={color}
             onChange={(c) => {
               setColor(c);
               onChange(c.hex);
-            }} />
+            }}
+          />
         </SheetDescription>
         <SheetFooter>
           <SheetClose asChild>
-            <Button onClick={() => { onSave(color.hex) }}> {chrome.i18n.getMessage("save_in_history")}</Button>
+            <Button
+              onClick={() => {
+                onSave(color.hex);
+              }}
+            >
+              {" "}
+              {chrome.i18n.getMessage("save_in_history")}
+            </Button>
           </SheetClose>
           <SheetClose asChild>
             <Button variant="outline"> {chrome.i18n.getMessage("cancel")}</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
-    </Sheet >
-  )
+    </Sheet>
+  );
 }

@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
-    include: ["react-color-palette"]
+    include: ["react-color-palette"],
   },
   resolve: {
     alias: {

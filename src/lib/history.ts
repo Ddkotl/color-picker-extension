@@ -1,4 +1,4 @@
-export const INIT_COLOR = "#872469"
+export const INIT_COLOR = "#872469";
 const MAX_FREE = 10;
 const MAX_PRO = 100;
 export function calcMaxHistory(isPro: boolean) {
@@ -8,7 +8,7 @@ export function calcMaxHistory(isPro: boolean) {
 export function getHistory(setHistory: (history: string[]) => void, onLoaded?: (firstColor: string) => void) {
   chrome.storage.local.get(["history"], (result) => {
     const data = result.history as string[];
-    if (data) setHistory(result.history as string[] || []);
+    if (data) setHistory((result.history as string[]) || []);
     if (data.length > 0 && onLoaded) onLoaded(data[0]);
   });
 }
@@ -30,15 +30,15 @@ export function downloadHistory(history: string[]) {
     type: "application/json",
   });
   const url = URL.createObjectURL(blob);
-  const date = new Date().toISOString()
+  const date = new Date().toISOString();
   const a = document.createElement("a");
   a.href = url;
   a.download = `color-history-${date}.json`;
   a.click();
   URL.revokeObjectURL(url);
-};
+}
 
-export function clearHistory(setHistory: (history: string[]) => void,) {
+export function clearHistory(setHistory: (history: string[]) => void) {
   chrome.storage.local.set({ history: [INIT_COLOR] });
-  setHistory([INIT_COLOR])
+  setHistory([INIT_COLOR]);
 }

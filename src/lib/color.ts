@@ -87,14 +87,13 @@ export function rgbToHsl(r: number, g: number, b: number) {
   return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
 }
 export function hexToOklch(r: number, g: number, b: number) {
-
   // Convert RGB to XYZ
   let x = r * 0.4124564 + g * 0.2126729 + b * 0.0193339;
-  let y = r * 0.2126729 + g * 0.7151522 + b * 0.1191920;
-  let z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
+  let y = r * 0.2126729 + g * 0.7151522 + b * 0.119192;
+  let z = r * 0.0193339 + g * 0.119192 + b * 0.9503041;
 
   // Convert XYZ to LCH
-  const l = Math.max(0, Math.min(100, (116 * (y / 100) ** (1 / 3)) - 16));
+  const l = Math.max(0, Math.min(100, 116 * (y / 100) ** (1 / 3) - 16));
   const c = Math.sqrt(x ** 2 + z ** 2);
   const h = Math.atan2(z, x) * (180 / Math.PI);
 
