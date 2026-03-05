@@ -1,0 +1,20 @@
+{
+  "extension_name": {
+    "message": "Collor Picker Tools"
+  },
+  "extension_description": {
+    "message": "Простое расширение для выбора цветов с экрана"
+  },
+  "pick_color": {
+    "message": "Выбрать цвет"
+  },
+  "edit_color": {
+    "message": "Редактировать цвет"
+  },
+  "save_in_history": {
+    "message": "Сохранить в истории"
+  },
+  "cancel": {
+    "message": "Отмена"
+  }
+}

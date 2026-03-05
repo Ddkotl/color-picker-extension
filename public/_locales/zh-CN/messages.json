@@ -1,0 +1,20 @@
+{
+  "extension_name": {
+    "message": "Collor Picker Tools"
+  },
+  "extension_description": {
+    "message": "一个简单的屏幕颜色拾取器扩展程序"
+  },
+  "pick_color": {
+    "message": "拾取颜色"
+  },
+  "edit_color": {
+    "message": "编辑颜色"
+  },
+  "save_in_history": {
+    "message": "保存到历史记录"
+  },
+  "cancel": {
+    "message": "取消"
+  }
+}

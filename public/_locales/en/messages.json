@@ -1,0 +1,20 @@
+{
+  "extension_name": {
+    "message": "Collor Picker Tools"
+  },
+  "extension_description": {
+    "message": "A simple extension pick colors from the screen"
+  },
+  "pick_color": {
+    "message": "Pick Color"
+  },
+  "edit_color": {
+    "message": "Edit Color"
+  },
+  "save_in_history": {
+    "message": "Save in history"
+  },
+  "cancel": {
+    "message": "Cancel"
+  }
+}
