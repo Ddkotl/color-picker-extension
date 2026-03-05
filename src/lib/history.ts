@@ -1,4 +1,4 @@
-
+export const INIT_COLOR = "#872469"
 const MAX_FREE = 10;
 const MAX_PRO = 100;
 export function calcMaxHistory(isPro: boolean) {
@@ -39,6 +39,6 @@ export function downloadHistory(history: string[]) {
 };
 
 export function clearHistory(setHistory: (history: string[]) => void,) {
-  chrome.storage.local.remove("history");
-  setHistory([])
+  chrome.storage.local.set({ history: [INIT_COLOR] });
+  setHistory([INIT_COLOR])
 }

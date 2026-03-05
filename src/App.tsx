@@ -3,7 +3,7 @@ import { Title } from "./components/app-title";
 import { ModeToggle } from "./components/mode-toggle";
 import { Button } from "./components/ui/button";
 import { SidebarClose } from "lucide-react";
-import { calcMaxHistory, clearHistory, downloadHistory, getHistory, saveHistory } from "./lib/history";
+import { calcMaxHistory, clearHistory, downloadHistory, getHistory, INIT_COLOR, saveHistory } from "./lib/history";
 import { pickColor } from "./lib/color";
 import { Separator } from "./components/ui/separator";
 import { ColorEditor } from "./components/color-editor";
@@ -11,8 +11,8 @@ import { ColorFormats } from "./components/color-formats";
 
 
 export function App() {
-    const [color, setColor] = useState<string | null>(null);
-    const [history, setHistory] = useState<string[]>([]);
+    const [color, setColor] = useState<string | null>(INIT_COLOR);
+    const [history, setHistory] = useState<string[]>([INIT_COLOR]);
     const [isPro] = useState<boolean>(true);
 
     const maxHistory = calcMaxHistory(isPro);
