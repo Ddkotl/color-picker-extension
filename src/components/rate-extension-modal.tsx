@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { markExtensionRated } from "@/lib/rate";
 
@@ -16,7 +16,20 @@ export function RateExtensionModal({ open, onClose }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [rating, setRating] = useState<number | null>(null);
   const [feedback, setFeedback] = useState("");
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  function handleMouseEnter(star: number) {
+    if (leaveTimer.current) {
+      clearTimeout(leaveTimer.current);
+    }
+    setHovered(star);
+  }
+
+  function handleMouseLeave() {
+    leaveTimer.current = setTimeout(() => {
+      setHovered(null);
+    }, 2000);
+  }
   if (!open) return null;
 
   async function handleRate(value: number) {
@@ -30,17 +43,18 @@ export function RateExtensionModal({ open, onClose }: Props) {
   }
 
   function sendFeedback() {
-    const mail = `mailto:${EMAIL}?subject=Extension feedback&body=${encodeURIComponent(
+    const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Extension feedback&body=${encodeURIComponent(
       feedback
     )}`;
 
-    window.open(mail, "_blank");
+    window.open(gmail, "_blank");
+
     setRating(null);
     onClose();
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-radial-primary backdrop-blur-sm">
       <div className="w-80 rounded-2xl bg-background border shadow-xl p-6 space-y-4 animate-in fade-in zoom-in-95">
 
         {!rating && (
@@ -61,8 +75,8 @@ export function RateExtensionModal({ open, onClose }: Props) {
                   <Star
                     key={star}
                     size={30}
-                    onMouseEnter={() => setHovered(star)}
-                    onMouseLeave={() => setHovered(null)}
+                    onMouseEnter={() => handleMouseEnter(star)}
+                    onMouseLeave={handleMouseLeave}
                     onClick={() => handleRate(star)}
                     className={`
           cursor-pointer transition-all duration-200

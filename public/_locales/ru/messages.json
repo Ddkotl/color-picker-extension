@@ -46,5 +46,11 @@
   },
   "download_history": {
     "message": "Скачать"
+  },
+  "eyedropper_not_supported": {
+    "message": "API EyeDropper не поддерживается в этом браузере."
+  },
+  "color_picked": {
+    "message": "Выбранный цвет: {0}"
   }
 }

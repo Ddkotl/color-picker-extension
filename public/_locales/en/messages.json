@@ -46,5 +46,11 @@
   },
   "download_history": {
     "message": "Download"
+  },
+  "eyedropper_not_supported": {
+    "message": "EyeDropper API not supported in this browser."
+  },
+  "color_picked": {
+    "message": "Picked color: {0}"
   }
 }

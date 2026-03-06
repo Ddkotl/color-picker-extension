@@ -8,7 +8,7 @@ export async function pickColor(
   setColor: (color: string) => void,
 ) {
   if (!("EyeDropper" in window)) {
-    toast.error("EyeDropper API not supported in this browser.");
+    toast.error((chrome.i18n.getMessage("eyedropper_not_supported")));
     return;
   }
 
@@ -17,7 +17,7 @@ export async function pickColor(
   try {
     const result = await eyeDropper.open();
     setColor(result.sRGBHex);
-    toast.success(`Picked color: ${result.sRGBHex}`);
+    toast.success((chrome.i18n.getMessage("color_picked", [result.sRGBHex])));
     await saveHistory(result.sRGBHex, history, maxHistory, setHistory);
   } catch {
     console.log("cancelled");
