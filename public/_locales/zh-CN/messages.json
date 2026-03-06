@@ -51,6 +51,6 @@
     "message": "此浏览器不支持 EyeDropper API。"
   },
   "color_picked": {
-    "message": "拾取的颜色: {0}"
+    "message": "拾取的颜色: "
   }
 }

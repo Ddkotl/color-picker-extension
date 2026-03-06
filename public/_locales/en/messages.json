@@ -51,6 +51,6 @@
     "message": "EyeDropper API not supported in this browser."
   },
   "color_picked": {
-    "message": "Picked color: {0}"
+    "message": "Picked color: "
   }
 }

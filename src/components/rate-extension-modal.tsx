@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { markExtensionRated } from "@/lib/rate";
+import { Button } from "./ui/button";
 
 const WEBSTORE_URL =
   "https://chromewebstore.google.com/detail/YOUR_EXTENSION_ID";
@@ -28,7 +29,7 @@ export function RateExtensionModal({ open, onClose }: Props) {
   function handleMouseLeave() {
     leaveTimer.current = setTimeout(() => {
       setHovered(null);
-    }, 2000);
+    }, 1000);
   }
   if (!open) return null;
 
@@ -55,7 +56,7 @@ export function RateExtensionModal({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-radial-primary backdrop-blur-sm">
-      <div className="w-80 rounded-2xl bg-background border shadow-xl p-6 space-y-4 animate-in fade-in zoom-in-95">
+      <div className="w-80 rounded-2xl bg-radial-primary border shadow-xl p-6 space-y-4 animate-in fade-in zoom-in-95">
 
         {!rating && (
           <>
@@ -109,12 +110,12 @@ export function RateExtensionModal({ open, onClose }: Props) {
               onChange={(e) => setFeedback(e.target.value)}
             />
 
-            <button
+            <Button
+              className="w-full text-white/80"
               onClick={sendFeedback}
-              className="w-full rounded-md bg-primary text-primary-foreground py-2 text-sm hover:opacity-90"
-            >
+              disabled={!feedback.trim()}>
               {chrome.i18n.getMessage("send_feedback")}
-            </button>
+            </Button>
           </>
         )}
       </div>

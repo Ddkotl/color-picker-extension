@@ -17,7 +17,7 @@ export async function pickColor(
   try {
     const result = await eyeDropper.open();
     setColor(result.sRGBHex);
-    toast.success((chrome.i18n.getMessage("color_picked", [result.sRGBHex])));
+    toast.success((chrome.i18n.getMessage("color_picked")) + result.sRGBHex);
     await saveHistory(result.sRGBHex, history, maxHistory, setHistory);
   } catch {
     console.log("cancelled");
