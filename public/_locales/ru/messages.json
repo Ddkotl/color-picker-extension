@@ -1,9 +1,9 @@
 {
   "extension_name": {
-    "message": "Collor Picker Tools"
+    "message": "Color Picker & Eyedropper: Grab HEX/RGB codes"
   },
   "extension_description": {
-    "message": "Простое расширение для выбора цветов с экрана"
+    "message": "Идеальный инструмент для выбора цвета. Мгновенно извлекайте пиксельные коды (HEX, RGB) с любого веб-сайта, используя встроенную историю и возможности настройки."
   },
   "pick_color": {
     "message": "Выбрать цвет"
